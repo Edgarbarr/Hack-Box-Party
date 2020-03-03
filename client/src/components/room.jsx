@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import InfoBar from './infoBar.jsx';
 import Input from './input.jsx';
 import Messages from './messages.jsx'
+import Trivia from './trivia.jsx';
 let socket;
 
 
@@ -45,12 +46,13 @@ const Room = ({location}) => {
     console.log(message, messages);
 
     return (
-        <div>
+        <div className="display-flex">
             <div>
+                
                 <InfoBar room={room}/>
-                <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+                <Trivia/>
                 <Messages messages={messages}/>
-                <iframe width="0px" height="0px" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/136724831&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+                <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
             </div>
         </div>
     )

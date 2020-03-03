@@ -6,7 +6,7 @@ const InfoBar = ({room}) => (
             <h3>{room}</h3>
         </div>
         <div>
-            <a href="/">Leave Room</a>
+            <a className="leave-room"href="/">Leave Room</a>
         </div>
     </div>
 )

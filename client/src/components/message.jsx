@@ -7,7 +7,7 @@ const Message = ({message: {user, text}, name}) => {
     }
 
     return (
-        isSentByCurrentUser ? (<div><p>{name}</p><div><p>{text}</p></div></div>) : (<div><p>{user}</p><div><p>{text}</p></div></div>)
+        isSentByCurrentUser ? (<div className="lead"><p>{name}</p><div><p>{text}</p></div></div>) : (<div className="lead"><p>{user}</p><div><p>{text}</p></div></div>)
     )
 }
 export default Message;

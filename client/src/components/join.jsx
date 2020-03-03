@@ -7,17 +7,16 @@ const Join = () => {
     return (
         <div className="joinOuterContainer">
         <div className="joinInnerContainer">
-          <h1 className="heading">HACK BOX PARTY</h1>
-          <div>
-            <input placeholder="Name" className="joinInput" type="text" onChange={(event) => setName(event.target.value)} />
+          <h1 className="display-1">HACK BOX PARTY</h1>
+          <div className="input-group mb-3s">
+            <input placeholder="Name" className="form-control" type="text" onChange={(event) => setName(event.target.value)} />
           </div>
           <div>
-            <input placeholder="Room" className="joinInput mt-20" type="text" onChange={(event) => setRoom(event.target.value)} />
+            <input placeholder="Room" className="form-control" type="text" onChange={(event) => setRoom(event.target.value)} />
           </div>
           <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/gameroom?name=${name}&room=${room}`}>
-            <button className={'button mt-20'} type="submit">Sign In</button>
+            <button className="btn btn-primary" type="submit">Sign In</button>
           </Link>
-          <iframe width="0" height="0" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/653811714&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
         </div>
       </div>
     )
