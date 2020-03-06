@@ -11,7 +11,7 @@ const controllers = {
         })
     },
     getUser: (req, res) => {
-        models.getRooms(req.params.id, (err, result)=>{
+        models.getUser(req.params.id, (err, result)=>{
             if(err){
                 res.status(404).send(err)
             } else {

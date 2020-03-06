@@ -17,9 +17,10 @@ app.use('/', routes);
 io.on('connection', (socket) => {
 
     socket.on('join', ({name, room}, callback)=>{
-        models.postUser({id: socket.id, name, room},(err, results) => {
+        models.postUser({id: socket.id, name, room, score: 0},(err, results) => {
             if(err) {
                 console.log(err)
+                callback(err)
             } else {
                 var user = results[0];
                 socket.emit('message', { user: 'admin', text: `Welcome ${user.username} to ${user.room}`});
@@ -30,9 +31,6 @@ io.on('connection', (socket) => {
                 callback();
             }
         })
-        
-
-        
     })
 
     socket.on('sendMessage', (message, callback) => {
@@ -46,10 +44,65 @@ io.on('connection', (socket) => {
             }
         })
     })
+    
+    socket.on('questions', (questions, callback) => {
+
+        models.getUser(socket.id, (err, results) => {
+            if(err) {
+                console.log(err)
+            } else {
+                var user = results[0];
+                socket.broadcast.to(user.room).emit('GameReady', questions)
+            }
+        })
+        // socket.broadcast.to(user.room).emit('answer', {user: questions})
+    })
+
+    socket.on('nextQuestion', (updates, callback)=>{
+        console.log('how many?')
+        models.getUser(socket.id, (err, results) => {
+
+            if(err) {
+                console.log(err)
+            } else {
+                var user = results[0];
+
+                io.to(user.room).emit('updateQuestion', updates)
+                io.to(user.room).emit('updateScore', updates)
+
+                console.log(updates,"updates")
+
+              
+                
+            }
+        })
+    })
+
+    socket.on('totalClients', ()=>{
+        models.getUser(socket.id, (err, results) => {
+            if(err) {
+                console.log(err)
+            } else {
+                var user = results[0];
+                var clients = io.sockets.adapter.rooms[user.room]
+                socket.emit('returnClients', clients.sockets);
+            }
+        })
+    })
 
     socket.on('disconnect', (message, callback)=>{
-        console.log('User disconnected')
+        models.removeUser(socket.id, (err, results) => {
+            if(err) {
+                console.log(err)
+            }
+            var user = results[0];
+            if(user){
+                io.to(user.room).emit('message', {user: 'admin', text: `${user.username} left ${user.room}`})
+            }
+        });
+
     })
+    
 })
 
 server.listen(port, ()=>{console.log(`listening on ${port}`)})

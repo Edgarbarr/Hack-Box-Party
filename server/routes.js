@@ -12,7 +12,7 @@ router
 
 router
 .route('/room')
-.get(controllers.getAllUsersInRoom)
+.post(controllers.getAllUsersInRoom)
 
 
 module.exports = router;

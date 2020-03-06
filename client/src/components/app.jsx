@@ -1,6 +1,5 @@
 import React, { createElement } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
-// import io from "socket.io-client";
 import Join from './join.jsx'
 import Room from './room.jsx'
 
