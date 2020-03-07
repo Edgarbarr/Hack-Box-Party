@@ -40,7 +40,7 @@ const ScoreBoard = ({players, socket, room, current, update}) => {
    
     useEffect(()=> {
         let newParticipants = participants.slice();
-        newParticipants.forEach((playerObject) => { if(playerObject.id === update.id){playerObject.score++} if(playerObject.score === 5){socket.emit('winner')}});
+        newParticipants.forEach((playerObject) => { if(playerObject.id === update.id){playerObject.score++} if(playerObject.score === 10){socket.emit('winner')}});
         setParticipants(newParticipants);
         
 

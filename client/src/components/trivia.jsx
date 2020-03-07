@@ -28,7 +28,7 @@ const Trivia = ({socket, room}) => {
     }
     function setColor(){
         document.getElementById('app').style.backgroundColor = randomColor();
-        setTimeout(setColor, 100);
+        // setTimeout(setColor, 100);
     }
     useEffect(()=> {  
         if(questions.length !==0 && playTrivia === false) {

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './style.css';
 
 const Join = () => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
     return (
         <div>
-        <div className="container">
+        <div className="container white">
           <h1 className="display-1">SUPER TRIVIA GAME 9001</h1>
           <div className="row">
           <div className="col-3">

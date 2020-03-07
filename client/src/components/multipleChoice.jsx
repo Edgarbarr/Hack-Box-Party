@@ -59,7 +59,7 @@ const MultipleChoice = ({choices, rightAnswer}) => {
         
         <Context.Consumer>{ context => (
             
-            <ul id="questions" className="list-group">
+            <ul id="questions" className="list-group ">
                 {choices.map(choice => <li onClick={buttonDisabled?null:penalty} className="list-group-item d-flex justify-content-between align-items-center">{window.atob(choice)}</li>)}
                 <li className="list-group-item d-flex justify-content-between align-items-center" onClick={buttonDisabled?null:context.next}>{window.atob(rightAnswer)}</li>
              </ul>
