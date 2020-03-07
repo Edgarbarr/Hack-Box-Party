@@ -10,10 +10,10 @@ const Join = () => {
           <h1 className="display-1">SUPER TRIVIA GAME 9001</h1>
           <div className="row">
           <div className="col-3">
-            <input placeholder="Name" className="form-control" type="text" onChange={(event) => setName(event.target.value)} />
+            <input placeholder="Name" className="form-control" type="text" onChange={(event) => setName(event.target.value.replace(' ', '').toLowerCase())} />
           </div>
           <div className="col-3">
-            <input placeholder="Room" className="form-control" type="text" onChange={(event) => setRoom(event.target.value)} />
+            <input placeholder="Room" className="form-control" type="text" onChange={(event) => setRoom(event.target.value.replace(' ', '').toLowerCase())} />
           </div>
           <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/gameroom?name=${name}&room=${room}`}>
             <button className="btn btn-primary" type="submit">Sign In</button>

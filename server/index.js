@@ -15,18 +15,25 @@ app.use('/', routes);
 
 
 io.on('connection', (socket) => {
-
+    
     socket.on('join', ({name, room}, callback)=>{
+        
+        const clientCount = socket.client.conn.server.clientsCount;
+        if(clientCount > 4) {
+            callback("This room is full")
+            return;
+        }
+        
         models.postUser({id: socket.id, name, room, score: 0},(err, results) => {
             if(err) {
                 console.log(err)
-                callback(err)
+                callback("Username already exists")
             } else {
                 var user = results[0];
                 socket.emit('message', { user: 'admin', text: `Welcome ${user.username} to ${user.room}`});
 
                 socket.broadcast.to(user.room).emit('message', {user: 'admin', text: `${user.username} has joined ${user.room}`})
-
+    
                 socket.join(user.room)
                 callback();
             }

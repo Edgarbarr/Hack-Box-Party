@@ -28,8 +28,8 @@ const Room = ({location}) => {
         socket.emit('join', {name, room},(err) => {
             if(err) {
                 socket.off();
-                setBadRoom(true);
-            }
+                setBadRoom(err);
+            } 
         });
         return () => {
             socket.emit('disconnect');
@@ -69,9 +69,10 @@ const Room = ({location}) => {
             </div>
         )
     }
+    
     if(badRoom) {
         return (
-            <div>Username taken in this Room
+            <div>{badRoom}
                 <a className="leave-room"href="/">Back</a>
             </div>
         )
@@ -82,7 +83,7 @@ const Room = ({location}) => {
                     <InfoBar room={room}/>
                     <Trivia socket={socket} name={name} room={room}/>
                     <div className="container">
-                    <Messages messages={messages}/>
+                    <Messages name={name}messages={messages}/>
                     <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
 
                     </div>

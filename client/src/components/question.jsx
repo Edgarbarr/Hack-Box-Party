@@ -5,6 +5,8 @@ import PackageContext from "./context.jsx";
 import './style.css'
 const Question = ({questions, socket, update}) => {
     let id = socket.id;
+    const CorrectSound = new Audio("./correct.mp3");
+
     const [current, setCurrent] = useState(0);
     
     if(socket) {
@@ -15,6 +17,7 @@ const Question = ({questions, socket, update}) => {
     }
     
     function nextQuestion(update){
+        CorrectSound.play();
         socket.emit('nextQuestion', {current: update, id} , () => {
 
         })

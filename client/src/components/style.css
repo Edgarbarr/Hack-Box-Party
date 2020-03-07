@@ -8,3 +8,13 @@
     background-color: white;
     transition: background-color .1s;
 }
+.lower-padding {
+    padding: 5px;
+}
+.font-chat {
+    font-size: larger;
+}
+.wrong {
+    background-color: grey;
+    color: darkgrey
+}
