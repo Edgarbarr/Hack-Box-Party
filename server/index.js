@@ -59,7 +59,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('nextQuestion', (updates, callback)=>{
-        console.log('how many?')
+ 
         models.getUser(socket.id, (err, results) => {
 
             if(err) {
@@ -67,12 +67,10 @@ io.on('connection', (socket) => {
             } else {
                 var user = results[0];
 
-                io.to(user.room).emit('updateQuestion', updates)
-                io.to(user.room).emit('updateScore', updates)
-
-                console.log(updates,"updates")
-
-              
+                // io.to(user.room).emit('updateQuestion', updates)
+                updates.username = user.username;
+    
+                io.to(user.room).emit('update', updates)
                 
             }
         })
@@ -89,6 +87,18 @@ io.on('connection', (socket) => {
             }
         })
     })
+    socket.on('winner', ()=>{
+        models.getUser(socket.id, (err, results) => {
+            if(err){
+                console.log(err)
+            } else {
+                var user = results[0];
+                var username = user.username
+                io.to(user.room).emit('gameover', {username})
+                console.log('hello from winner server')
+            }
+        })
+    } )
 
     socket.on('disconnect', (message, callback)=>{
         models.removeUser(socket.id, (err, results) => {

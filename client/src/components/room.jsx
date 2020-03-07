@@ -7,14 +7,17 @@ import Messages from './messages.jsx'
 import Trivia from './trivia.jsx';
 import { Redirect } from 'react-router-dom';
 let socket;
+// let xx;
 
 
+// let winner = winner || false;
 const Room = ({location}) => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const [badRoom, setBadRoom] = useState(false)
+    const [badRoom, setBadRoom] = useState(false);
+    const[gameOver, setGameOver] = useState(false);
     const endpoint = 'localhost:3187';
     useEffect(()=>{
         const {name, room} = queryString.parse(location.search);
@@ -24,8 +27,6 @@ const Room = ({location}) => {
         setRoom(room);
         socket.emit('join', {name, room},(err) => {
             if(err) {
-                console.log('fuck')
-                // alert('Name taken for this room')
                 socket.off();
                 setBadRoom(true);
             }
@@ -42,6 +43,15 @@ const Room = ({location}) => {
         })
     }, [messages]);
 
+    if(socket) {
+        socket.on('gameover', (winner)=> {
+            console.log(winner, 'gameover listening in room')
+            setGameOver(winner);
+        })
+
+    }
+
+
     const sendMessage = (event) => {
     
         event.preventDefault();
@@ -50,6 +60,14 @@ const Room = ({location}) => {
                 setMessage('');
             })
         }
+    } 
+    if(gameOver !== false) {
+        return (
+            <div>
+                <div>Winner: {gameOver.username}</div>
+                <a className="leave-room"href="/">Main Menu</a>
+            </div>
+        )
     }
     if(badRoom) {
         return (
@@ -63,8 +81,11 @@ const Room = ({location}) => {
                 <div>    
                     <InfoBar room={room}/>
                     <Trivia socket={socket} name={name} room={room}/>
+                    <div className="container">
                     <Messages messages={messages}/>
                     <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+
+                    </div>
                 </div>
             </div>
         )

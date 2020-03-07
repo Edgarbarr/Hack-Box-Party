@@ -1,18 +1,19 @@
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 const axios = require('axios');
 
-const ScoreBoard = ({players, socket, room}) => {
-
-   const [participants, dispatch] = useReducer((participants, { type, value }) => {
-    switch (type) {
-      case "add":
-        return value;
-      case "update":
-        participants.forEach((playerObject) => { if(playerObject.id == value){playerObject.score++} });
-      default:
-        return participants;
-    }
-  }, []);
+const ScoreBoard = ({players, socket, room, current, update}) => {
+    const [participants, setParticipants] = useState([]);
+        
+//    const [participants, dispatch] = useReducer((participants, { type, value }) => {
+//     switch (type) {
+//       case "add":
+//         return value;
+//       case "update":
+//         participants.forEach((playerObject) => { if(playerObject.id == value){playerObject.score++} });
+//       default:
+//         return participants;
+//     }
+//   }, []);
 
     useEffect(()=> {
 
@@ -21,26 +22,40 @@ const ScoreBoard = ({players, socket, room}) => {
             axios.post('/room', {room: room})
             .then((results)=>{
                 for(var key in results.data) {
+                    console.log(results.data.key)
                     allParticipants.push(results.data[key])
                 }
-                updateScore(allParticipants);
+                setParticipants(allParticipants);
                 
             })
 
         }
     },[players]);
+    
+    // function update(array){
+    //     // dispatch({type: 'add', value: array})
 
-    function updateScore(array){
-        dispatch({type: 'add', value: array})
         
-    }
+    // }
+   
+    useEffect(()=> {
+        let newParticipants = participants.slice();
+        newParticipants.forEach((playerObject) => { if(playerObject.id === update.id){playerObject.score++} if(playerObject.score === 5){socket.emit('winner')}});
+        setParticipants(newParticipants);
+        
 
-    if(socket && participants.length > 0) {
-        socket.on('updateScore', (update) => {
-            dispatch({type: 'update', value: `${update.id}`})
-            console.log(participants,'morescores')
-        })
-    }
+    }, [update])
+  
+    // socket.on('updateScore', (update) => {
+    //     // dispatch({type: 'update', value: `${update.id}`})
+    //     let newParticipants = participants.slice();
+    //     newParticipants.forEach((playerObject) => { if(playerObject.id === update.id){playerObject.score++} });
+    //     setParticipants(newParticipants);
+
+    //     console.log(participants,'morexxscores')
+    // })
+
+   
 
     // useEffect(() => {
     //     if(participants.length > 0) {
@@ -54,9 +69,9 @@ const ScoreBoard = ({players, socket, room}) => {
     if(participants.length > 0){
 
         return(
-            <div>
-                {participants.map(player => (player.id !== socket.id) ? <div id={player.id}>{player.username}<div>{player.score}</div></div> : <div id={player.id}>You<div>{player.score}</div></div>)}
-            </div>
+            <ul className="list-group list-group-horizontal-sm">
+                {participants.map(player => (player.id !== socket.id) ? <li className="list-group-item d-flex justify-content-between align-items-center" id={player.id}>{player.username} <div></div><span className="badge badge-light badge-pill">{player.score}</span></li> : <li className="list-group-item d-flex justify-content-between align-items-center" id={player.id}>You<span className="badge badge-light badge-pill">{player.score}</span></li>)}
+            </ul>
         )
     }
     return (

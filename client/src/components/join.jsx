@@ -5,18 +5,21 @@ const Join = () => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
     return (
-        <div className="joinOuterContainer">
-        <div className="joinInnerContainer">
-          <h1 className="display-1">HACK BOX PARTY</h1>
-          <div className="input-group mb-3s">
+        <div>
+        <div className="container">
+          <h1 className="display-1">SUPER TRIVIA GAME 9001</h1>
+          <div className="row">
+          <div className="col-3">
             <input placeholder="Name" className="form-control" type="text" onChange={(event) => setName(event.target.value)} />
           </div>
-          <div>
+          <div className="col-3">
             <input placeholder="Room" className="form-control" type="text" onChange={(event) => setRoom(event.target.value)} />
           </div>
           <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/gameroom?name=${name}&room=${room}`}>
             <button className="btn btn-primary" type="submit">Sign In</button>
           </Link>
+
+          </div>
         </div>
       </div>
     )

@@ -1,0 +1,10 @@
+.font-big {
+    font-size: 35px;
+}
+.height-set {
+    height: 200px;
+}
+#app {
+    background-color: white;
+    transition: background-color .1s;
+}
