@@ -70,7 +70,7 @@ const Trivia = ({socket, room}) => {
                   <div className="card-body">
                     <h5 className="card-title">Basic knowledge Trivia</h5>
                     <p className="card-text">Impress friends with knowledge of useless info!</p>
-                    <a api='https://opentdb.com/api.php?amount=10&encode=base64' onClick={()=>getQuestions(event)} href="#" className="btn btn-dark">Play</a>
+                    <a api='https://opentdb.com/api.php?amount=40&encode=base64' onClick={()=>getQuestions(event)} href="#" className="btn btn-dark">Play</a>
                   </div>
                 </div>
               </div>
@@ -80,7 +80,7 @@ const Trivia = ({socket, room}) => {
                 <div className="card-body">
                   <h5 className="card-title">C.S. Trivia</h5>
                   <p className="card-text">Don't forget to import React from 'react'.</p>
-                  <a api="https://opentdb.com/api.php?amount=10&category=18&encode=base64" onClick={()=>getQuestions(event)} href="#" className="btn btn-dark">Play</a>
+                  <a api="https://opentdb.com/api.php?amount=40&category=18&encode=base64" onClick={()=>getQuestions(event)} href="#" className="btn btn-dark">Play</a>
                 </div>
               </div>
             </div>
@@ -90,7 +90,7 @@ const Trivia = ({socket, room}) => {
                   <div className="card-body">
                     <h5 className="card-title">Television Trivia</h5>
                     <p className="card-text">Finally all that T.V. watching will come in handy!</p>
-                    <a api='https://opentdb.com/api.php?amount=10&category=14&encode=base64' onClick={()=>getQuestions(event)} href="#" className="btn btn-dark">Play</a>
+                    <a api='https://opentdb.com/api.php?amount=40&category=14&encode=base64' onClick={()=>getQuestions(event)} href="#" className="btn btn-dark">Play</a>
                   </div>
                 </div>
               </div>
@@ -100,7 +100,7 @@ const Trivia = ({socket, room}) => {
                   <div className="card-body">
                     <h5 className="card-title">Celebritiy Trivia</h5>
                     <p className="card-text">I wonder what Kim Kardasian is doing?</p>
-                    <a api='https://opentdb.com/api.php?amount=10&category=26&encode=base64' onClick={()=>getQuestions(event)} href="#" className="btn btn-dark">Play</a>
+                    <a api='https://opentdb.com/api.php?amount=40&category=26&encode=base64' onClick={()=>getQuestions(event)} href="#" className="btn btn-dark">Play</a>
                   </div>
                 </div>
               </div>
